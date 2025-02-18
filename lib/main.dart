@@ -17,7 +17,7 @@ class App extends StatelessWidget {
           seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'TodoList'),
+      home: const MyHomePage(title: 'TodoListV2'),
     );
   }
 }

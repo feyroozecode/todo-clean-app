@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../models/task.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -9,9 +11,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() => setState(() =>   _counter++);
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  // list 
+ List<Task> taskItems = [
+    Task(title: "Learn Code 1", description: "Learn CPP and Flutter ", isDone: false),
+    Task(title: "Go to work",description: "Go to work at 7PM",  isDone: false),
+ ];
+
+  // ajout
+  void addTask(Task task){
+    setState(() {
+      if(task.title.isEmpty){
+        return;
+      }
+      taskItems.add(task);
+    });
+  }
+
+  // suppression
+  void removeTask(Task task){
+    setState(() {
+      taskItems.remove(task);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,25 +46,75 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Vous avez cliquer sur le bouton:',
+
+      // list de taches
+      body: ListView.builder(
+        itemCount: taskItems.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(taskItems[index].title),
+            subtitle: Text(taskItems[index].description != null ? taskItems[index].description! : ""),
+            trailing: IconButton(
+              onPressed: () {
+                removeTask(taskItems[index]);
+              },
+              icon: const Icon(Icons.delete),
             ),
-            Text(
-              '$_counter Fois',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+          );
+        },
       ),
+
+      // ajout
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text('Ajouter une tache'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    TextField(
+                      controller: _titleController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Titre',
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: _descriptionController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Description',
+                      ),
+                    ),
+                  ],    
+                
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Annuller'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      addTask(Task(title: _titleController.text, description: _descriptionController.text));
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Ajouter'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
