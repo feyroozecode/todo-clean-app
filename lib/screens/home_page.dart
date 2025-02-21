@@ -32,10 +32,13 @@ class _MyHomePageState extends State<MyHomePage2> {
       }
       taskItems.add(task);
     });
+    _titleController.clear();
+    _descriptionController.clear();
   }
 
   // suppression
   void removeTask(Task task) {
+    // afficher un message avant de supprimer
     setState(() {
       taskItems.remove(task);
     });
@@ -79,9 +82,11 @@ class _MyHomePageState extends State<MyHomePage2> {
 
   Widget _buildGrid() {
     return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 3 / 2,
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
       ),
       itemCount: taskItems.length,
       itemBuilder: (context, index) {
