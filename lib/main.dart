@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/homepage.dart';
+import 'screens/homepage2.dart';
 
 // lancement de l'app -> Dart lance l'application Flutter
 void main() => runApp(const App());
@@ -13,11 +14,10 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'TodoList',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.orange),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'TodoListV2'),
+      home: const MyHomePage2(title: 'TodoList Responsive'),
     );
   }
 }

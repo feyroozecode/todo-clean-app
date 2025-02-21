@@ -66,8 +66,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
       // ajout
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
+        onPressed: ()=> _addTaskDialog(),
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
+    );
+    
+  }
+  _addTaskDialog(){
+    final _titleController = TextEditingController();
+    final _descriptionController = TextEditingController();
+
+    showDialog(
             context: context,
             builder: (context) {
               return AlertDialog(
@@ -94,14 +104,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 
                 ),
                 actions: <Widget>[
+
+                  // bouton annuler
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                     child: const Text('Annuller'),
                   ),
+
+                  // bouton ajout 
                   TextButton(
                     onPressed: () {
+                      _titleController.clear();
+                      _descriptionController.clear();
                       addTask(Task(title: _titleController.text, description: _descriptionController.text));
                       Navigator.of(context).pop();
                     },
@@ -111,10 +127,5 @@ class _MyHomePageState extends State<MyHomePage> {
               );
             },
           );
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
   }
 }
