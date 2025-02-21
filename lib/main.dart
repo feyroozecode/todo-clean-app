@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/homepage.dart';
-import 'screens/homepage2.dart';
+import 'screens/home_page.dart';
 
 // lancement de l'app -> Dart lance l'application Flutter
 void main() => runApp(const App());

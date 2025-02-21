@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/task.dart';
+import '../widgets/add_dialog_widget.dart';
 
 class MyHomePage2 extends StatefulWidget {
   const MyHomePage2({super.key, required this.title});
@@ -11,6 +12,9 @@ class MyHomePage2 extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage2> {
+  final _titleController = TextEditingController();
+  final _descriptionController = TextEditingController();
+
   // list
   List<Task> taskItems = [
     Task(
@@ -19,62 +23,6 @@ class _MyHomePageState extends State<MyHomePage2> {
         isDone: false),
     Task(title: "Go to work", description: "Go to work at 7PM", isDone: false),
   ];
-
-  _showAddTaskDialog() {
-    final _titleController = TextEditingController();
-    final _descriptionController = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Ajouter une tache'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              TextField(
-                controller: _titleController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Titre',
-                ),
-              ),
-              const SizedBox(height: 10),
-              TextField(
-                controller: _descriptionController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Description',
-                ),
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            // bouton annuler
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Annuller'),
-            ),
-
-            // bouton ajout
-            TextButton(
-              onPressed: () {
-                _titleController.clear();
-                _descriptionController.clear();
-                addTask(Task(
-                    title: _titleController.text,
-                    description: _descriptionController.text));
-                Navigator.of(context).pop();
-              },
-              child: const Text('Ajouter'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   // ajout
   void addTask(Task task) {
@@ -104,7 +52,16 @@ class _MyHomePageState extends State<MyHomePage2> {
       ),
       body: screenWidth > 600 ? _buildGrid() : _buildList(),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showAddTaskDialog,
+        onPressed: () => showAddTaskDialog(
+            context: context,
+            addAction: () => addTask(
+                  Task(
+                    title: _titleController.text,
+                    description: _descriptionController.text,
+                  ),
+                ),
+            titleController: _titleController,
+            descriptionController: _descriptionController),
         tooltip: 'Ajouter une tâche',
         child: const Icon(Icons.add),
       ),
