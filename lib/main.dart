@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/home_page.dart';
+import 'package:todolistapp/screens/home_screen.dart';
+import 'package:todolistapp/screens/todo_screen.dart';
 
 // lancement de l'app -> Dart lance l'application Flutter
 void main() => runApp(const App());
@@ -11,12 +12,13 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'TodoList',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const MyHomePage2(title: 'TodoList Responsive'),
+      home: const HomeScreen(),
     );
   }
 }

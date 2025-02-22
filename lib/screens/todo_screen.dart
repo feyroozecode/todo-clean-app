@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import '../models/task.dart';
 import '../widgets/add_dialog_widget.dart';
 
-class MyHomePage2 extends StatefulWidget {
-  const MyHomePage2({super.key, required this.title});
-  final String title;
+class TodoScreen extends StatefulWidget {
+  const TodoScreen({super.key,});
 
   @override
-  State<MyHomePage2> createState() => _MyHomePageState();
+  State<TodoScreen> createState() => _TodoScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage2> {
+class _TodoScreenState extends State<TodoScreen> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
 
@@ -51,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage2> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text("Todo"),
       ),
       body: screenWidth > 600 ? _buildGrid() : _buildList(),
       floatingActionButton: FloatingActionButton(
@@ -99,22 +98,17 @@ class _MyHomePageState extends State<MyHomePage2> {
     return ListTile(
       title: Text(task.title),
       subtitle: Text(task.description ?? ''),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Checkbox(
-            value: task.isDone,
-            onChanged: (value) {
-              setState(() {
-                task.isDone = value ?? false;
-              });
-            },
-          ),
-          IconButton(
-            onPressed: () => removeTask(task),
-            icon: const Icon(Icons.delete),
-          ),
-        ],
+      leading: Checkbox(
+        value: task.isDone,
+        onChanged: (value) {
+          setState(() {
+            task.isDone = value ?? false;
+          });
+        },
+      ),
+      trailing: IconButton(
+        onPressed: () => removeTask(task),
+        icon: const Icon(Icons.delete),
       ),
     );
   }
