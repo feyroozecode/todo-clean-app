@@ -10,7 +10,6 @@ class SigninScreen extends StatefulWidget {
 }
 
 class _SigninScreenState extends State<SigninScreen> {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -26,12 +25,12 @@ class _SigninScreenState extends State<SigninScreen> {
         // Email et mot de passe vides
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Veuillez saisir votre email et mot de passe'),
+            content: Text('Veuillez remplir tous les champs'),
           ),
         );
         return;
-      }
-     else if(_emailController.text != "abc@gmail.com" && _passwordController.text != "123456"){
+      } else if (_emailController.text != "abc@gmail.com" &&
+          _passwordController.text != "123456") {
         // Connexion échouée
         // Afficher un message d'erreur
         ScaffoldMessenger.of(context).showSnackBar(
@@ -39,61 +38,52 @@ class _SigninScreenState extends State<SigninScreen> {
             content: Text('Email ou mot de passe incorrect'),
           ),
         );
-      } 
-      else {
-         // Connexion réussie
+      } else {
+        // Connexion réussie
         // Redirection vers la page d'accueil
-        Navigator.pushReplacement(
-          context, MaterialPageRoute(
-            builder: (context) => const HomeScreen())
-        );
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const HomeScreen())
+          );
       }
-     }
     }
-  
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Connexion'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Center(
-        child: Form(
-          key: _formKey,
-          child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-              ),
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Mot de passe',
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Connexion'),
-            ),
-
-          ],
+        appBar: AppBar(
+          title: const Text('Connexion'),
         ),
-        )
-
-      ),
-      )
-    );
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Center(
+              child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextFormField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    labelText: 'Email',
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    labelText: 'Mot de passe',
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () => handleSignin(),
+                  child: const Text('Connexion'),
+                ),
+              ],
+            ),
+          )),
+        ));
   }
 }
