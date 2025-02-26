@@ -79,6 +79,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _passwordController,
+                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return _passwordError;
