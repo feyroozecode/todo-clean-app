@@ -65,6 +65,13 @@ class _SigninScreenState extends State<SigninScreen> {
               children: [
                 TextFormField(
                   controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return _emailError;
+                    }
+                    return null;
+                  },
                   decoration: const InputDecoration(
                     labelText: 'Email',
                   ),
@@ -72,6 +79,12 @@ class _SigninScreenState extends State<SigninScreen> {
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _passwordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return _passwordError;
+                    }
+                    return null;
+                  },
                   decoration: const InputDecoration(
                     labelText: 'Mot de passe',
                   ),
