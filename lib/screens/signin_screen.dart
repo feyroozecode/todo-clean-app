@@ -19,6 +19,16 @@ class _SigninScreenState extends State<SigninScreen> {
   final _formKey = GlobalKey<FormState>();
 
   // Email validation pattern
+
+  /// Pattern de validation pour l'email
+  /// Vérifie que l'email respecte le format standard:
+  /// - Partie locale: lettres, chiffres, points, tirets (avant le @)
+  /// - @ obligatoire
+  /// - Domaine: lettres, chiffres, tirets
+  /// - Extension: 2 à 4 caractères (.com, .fr, etc.)
+  ///
+  /// Exemples valides:
+  /// - utilisateur@gmail.com
   final emailPattern = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
   // handle connexion
@@ -31,7 +41,6 @@ class _SigninScreenState extends State<SigninScreen> {
             content: Text('Veuillez remplir tous les champs'),
           ),
         );
-        return;
       } else if (_emailController.text != "abc@gmail.com" &&
           _passwordController.text != "123456") {
         // Connexion échouée
