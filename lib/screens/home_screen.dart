@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:todolistapp/screens/todo_screen.dart';
 
@@ -12,7 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   List<DashboardItem> dashboardItems = [
     DashboardItem(
       title: 'Todo',
@@ -24,45 +22,46 @@ class _HomeScreenState extends State<HomeScreen> {
       description: 'About developer',
       destination: const Placeholder(),
     ),
-
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Super App'),
-      ),
-      body:  Container(
-        padding: const EdgeInsets.all(16),
-        color: Colors.grey.shade200,
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 3 / 2,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
-          ),
-          itemCount: dashboardItems.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap:(){
-                Navigator.push(
-                  context, 
-                  MaterialPageRoute(
-                    builder: (context) => dashboardItems[index].destination)
-                );
-              }  ,
-              child:Card(
-              child: ListTile(
-                title: Text(dashboardItems[index].title, style: const TextStyle(fontSize: 20),),
-                subtitle: Text(dashboardItems[index].description ?? ''),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text('Super App'),
+        ),
+        body: Container(
+            padding: const EdgeInsets.all(16),
+            color: Colors.grey.shade200,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
               ),
-            ),
-            );
-          },
-        )
-      )
-    );
+              itemCount: dashboardItems.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                dashboardItems[index].destination));
+                  },
+                  child: Card(
+                    child: ListTile(
+                      title: Text(
+                        dashboardItems[index].title,
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                      subtitle: Text(dashboardItems[index].description ?? ''),
+                    ),
+                  ),
+                );
+              },
+            )));
   }
 }

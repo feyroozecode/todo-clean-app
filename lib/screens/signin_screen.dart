@@ -41,8 +41,29 @@ class _SigninScreenState extends State<SigninScreen> {
             content: Text('Veuillez remplir tous les champs'),
           ),
         );
-      } else if (_emailController.text != "abc@gmail.com" &&
-          _passwordController.text != "123456") {
+      } else if (_emailController.text == "ibr@gmail.com" &&
+          _passwordController.text == "123456") {
+        showDialog(
+            context: context,
+            builder: (context) => Builder(
+                builder: (c) => const AlertDialog(
+                    contentPadding: EdgeInsets.only(top: 200, bottom: 200),
+                    title: Text('Connexion'),
+                    content: Center(
+                        child: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: CircularProgressIndicator(),
+                    )))));
+        // wait 3 seonds and navigate with Future
+        await Future.delayed(const Duration(seconds: 3), () {
+          /// LOADING
+          // Connexion réussie
+          // Redirection vers la page d'accueil
+          Navigator.pushReplacement(context.mounted ? context : context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
+        });
+      } else {
         // Connexion échouée
         // Afficher un message d'erreur
         ScaffoldMessenger.of(context).showSnackBar(
@@ -50,11 +71,6 @@ class _SigninScreenState extends State<SigninScreen> {
             content: Text('Email ou mot de passe incorrect'),
           ),
         );
-      } else {
-        // Connexion réussie
-        // Redirection vers la page d'accueil
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()));
       }
     }
   }
