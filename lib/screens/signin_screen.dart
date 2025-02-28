@@ -18,6 +18,9 @@ class _SigninScreenState extends State<SigninScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  // Email validation pattern
+  final emailPattern = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
   // handle connexion
   Future<void> handleSignin() async {
     if (_formKey.currentState!.validate()) {
@@ -42,8 +45,7 @@ class _SigninScreenState extends State<SigninScreen> {
         // Connexion réussie
         // Redirection vers la page d'accueil
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen())
-          );
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
       }
     }
   }
@@ -59,6 +61,7 @@ class _SigninScreenState extends State<SigninScreen> {
           child: Center(
               child: Form(
             key: _formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,6 +72,9 @@ class _SigninScreenState extends State<SigninScreen> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return _emailError;
+                    }
+                    if (!emailPattern.hasMatch(value)) {
+                      return 'Veuillez entrer un email valide';
                     }
                     return null;
                   },
