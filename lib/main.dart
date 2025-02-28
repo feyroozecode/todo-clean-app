@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todolistapp/screens/signin_screen.dart';
+import 'package:todolistapp/src/features/auth/presentation/signin_screen.dart';
 
 // lancement de l'app -> Dart lance l'application Flutter
 void main() => runApp(const App());

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../src/features/home/presentation/home_screen.dart';
+import '../../home/presentation/home_screen.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
@@ -43,7 +43,6 @@ class _SigninScreenState extends State<SigninScreen> {
         );
       } else if (_emailController.text == "ibr@gmail.com" &&
           _passwordController.text == "123456") {
-        
         
         showDialog(
             context: context,

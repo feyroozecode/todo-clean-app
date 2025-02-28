@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../models/task.dart';
-import '../widgets/add_dialog_widget.dart';
+import '../domain/task.dart';
+import '../../../../widgets/add_dialog_widget.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key,});

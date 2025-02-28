@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todolistapp/screens/todo_screen.dart';
+import 'package:todolistapp/src/features/task/presentation/todo_screen.dart';
 
-import '../models/dashboard_item.dart';
+import '../domain/dashboard_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
